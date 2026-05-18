@@ -10,6 +10,7 @@ import { computeNEWS2 } from './engine/news2.js';
 import { renderDashboard, updateDashboard } from './pages/dashboard.js';
 import { renderPatientDetail, updatePatientDetail } from './pages/patient-detail.js';
 import { renderRiskAnalysis } from './pages/risk-analysis.js';
+import { renderSandbox } from './pages/sandbox.js';
 
 // ─── State ──────────────────────────────────────────────────────
 let currentPage = 'dashboard';
@@ -49,6 +50,9 @@ function renderCurrentPage() {
     case 'analysis':
       renderRiskAnalysis(main, currentPatientId, navigate);
       break;
+    case 'sandbox':
+      renderSandbox(main, navigate);
+      break;
     default:
       renderDashboard(main, navigate);
   }
@@ -85,6 +89,10 @@ function buildAppShell() {
             <span class="nav-icon">📊</span>
             <span>Ward Dashboard</span>
           </div>
+          <div class="nav-item" data-page="sandbox">
+            <span class="nav-icon">🧪</span>
+            <span>Clinical Sandbox</span>
+          </div>
 
           <div class="nav-section-label" style="margin-top: var(--space-4);">Patients by Risk</div>
           ${patientNavItems}
@@ -107,6 +115,10 @@ function buildAppShell() {
   // Sidebar nav click handlers
   document.querySelectorAll('.nav-item[data-page="dashboard"]').forEach(item => {
     item.addEventListener('click', () => navigate('dashboard'));
+  });
+  
+  document.querySelectorAll('.nav-item[data-page="sandbox"]').forEach(item => {
+    item.addEventListener('click', () => navigate('sandbox'));
   });
 
   document.querySelectorAll('.nav-item[data-patient-id]').forEach(item => {
